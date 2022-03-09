@@ -28,7 +28,7 @@ def get_urls(search_term):
 	urls_to_go_through += parse_data_api(res)
 
 	for x in range(pages_to_go_through):
-		res = r.get(url.format(args.search, x+1), headers={"accept": "application/json"}).text
+		res = r.get(url.format(search_term, x+1), headers={"accept": "application/json"}).text
 		res = json.loads(res)
 		urls_to_go_through += parse_data_api(res)
 
