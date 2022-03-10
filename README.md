@@ -64,11 +64,7 @@ optional arguments:
 
 ```bash
 python3 swaggerHole.py -s test.com
-```
 
-### Pipe mode
-
-```bash
 echo test.com | python3 swaggerHole.py
 ```
 
@@ -76,12 +72,16 @@ echo test.com | python3 swaggerHole.py
 
 ```bash
 python3 swaggerHole.py -s test.com --json
+
+echo test.com | python3 swaggerHole.py --json
 ```
 
 ### Search for secret about a domain and do it fast :)
 
 ```bash
 python3 swaggerHole.py -s test.com -t 100
+
+echo test.com | python3 swaggerHole.py -t 100
 ```
 
 ## Thanks
