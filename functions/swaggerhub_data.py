@@ -42,12 +42,12 @@ def get_urls(search_term):
 	urls_to_go_through = []
 	urls_to_go_through += parse_data_api(res)
 
-	threads= []
+	threads = []
 	with ThreadPoolExecutor(max_workers=25) as executor:
 		for page in range(pages_to_go_through):
 			threads.append(executor.submit(make_req, url, search_term, page))
 		
-		for task in as_completed(threads):
-			urls_to_go_through += parse_data_api(task.result())
+	for task in as_completed(threads):
+		urls_to_go_through += parse_data_api(task.result())
 
 	return urls_to_go_through
