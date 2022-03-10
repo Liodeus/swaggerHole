@@ -28,10 +28,14 @@ This tool is made to automate the process of retrieving secrets in the public AP
 ## Installation
 
 ```bash
-git clone https://github.com/Liodeus/swaggerHole
-cd swaggerHole
-pip3 install -r requirements.txt
-python3 swaggerHole.py
+pip3 install swaggerhole
+```
+
+or cloning this repository and running
+
+```bash
+git clone https://github.com/Liodeus/swaggerHole.git
+pip3 install .
 ```
 
 ## Usage
@@ -47,7 +51,7 @@ python3 swaggerHole.py
  / __  // /_/ // //  __/                           
 /_/ /_/ \____//_/ \___/                            
                                                    
-usage: swaggerHole.py [-h] -s SEARCH [-o OUT] [-t THREADS] [-j]
+usage: swaggerhole [-h] -s SEARCH [-o OUT] [-t THREADS] [-j]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -62,25 +66,25 @@ optional arguments:
 ### Search for secret about a domain
 
 ```bash
-python3 swaggerHole.py -s test.com
+swaggerHole -s test.com
 
-echo test.com | python3 swaggerHole.py
+echo test.com | swaggerHole
 ```
 
 ### Search for secret about a domain and output to json
 
 ```bash
-python3 swaggerHole.py -s test.com --json
+swaggerHole -s test.com --json
 
-echo test.com | python3 swaggerHole.py --json
+echo test.com | swaggerHole --json
 ```
 
 ### Search for secret about a domain and do it fast :)
 
 ```bash
-python3 swaggerHole.py -s test.com -t 100
+swaggerHole -s test.com -t 100
 
-echo test.com | python3 swaggerHole.py -t 100
+echo test.com | swaggerHole -t 100
 ```
 
 ## Thanks
