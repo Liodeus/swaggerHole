@@ -1,3 +1,6 @@
+import os
+
+
 def banner():
 	"""
 		Print banner
@@ -14,3 +17,15 @@ def banner():
 /_/ /_/ \____//_/ \___/                            
                                                    """
 	print(banner)
+
+
+
+def make_directory(path):
+    """
+        Create directory
+    """
+    if not os.path.exists(path):
+        os.makedirs(path)
+    else:
+        print("Folder already exists")
+        exit()

@@ -43,3 +43,32 @@ _regex = {
 	'ip': r"(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)",
 	'url': r"(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})"
 }
+
+
+_domain_to_delete =  [
+	"google.com",
+	"attachment.domain.com",
+	"text.domain.com",
+	"facbook.com",
+	"facebook.com",
+	"attachment.domain.com",
+	"linkedin.com",
+	"twitter.com",
+	"personal-example.com",
+	"example-john-doe.com",
+	"example-company.com",
+	"apache.org",
+	"xxxx.zz",
+	"google.fr",
+	"example.com",
+	"domain.com",
+	"viadeo.com",
+	"prod.foo.com",
+	"dev.foo.com",
+	"smartbear.com",
+	"url.com",
+	"spotify.com",
+	"swagger.io"
+]
+
+
