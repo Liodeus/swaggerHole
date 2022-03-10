@@ -1,5 +1,5 @@
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from config.regex_config import _regex, _domain_to_delete
+from swaggerhole.core.regex_config import _regex, _domain_to_delete
 import requests
 import whispers
 import json
@@ -49,7 +49,7 @@ def whispers_search(path_file, json_ouput):
 	"""
 	secret_found = False
 	# Whisper scan
-	for secret in whispers.secrets(f"-c config/config.yml {path_file}"):
+	for secret in whispers.secrets(f"-R comment {path_file}"):
 		if json_ouput:
 			data = {"line": secret.line, f"{secret.key}": secret.value, "file": path_file}
 			print(data)

@@ -1,13 +1,17 @@
-from functions.research_secret import *
-from functions.swaggerhub_data import *
-from functions.misc import *
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+from swaggerhole.core.research_secret import parse_yaml_research_secret
+from swaggerhole.core.swaggerhub_data import get_urls
+from swaggerhole.core.misc import make_directory, banner
 from datetime import datetime
 import argparse
 import time
 import sys
+import os
 
 
-if __name__ == '__main__':
+def main():
 	banner()
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-s", "--search", help="Term to search", type=str)
@@ -50,3 +54,7 @@ if __name__ == '__main__':
 	except KeyboardInterrupt:
 		print("Abort scanning")
 		exit()
+
+
+if __name__ == '__main__':
+	main()
