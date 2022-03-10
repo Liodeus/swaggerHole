@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://github.com/Liodeus/swaggerHole/blob/main/images/logo.png" alt="Logo">
+<img src="https://github.com/Liodeus/swaggerHole/blob/main/swaggerhole/images/logo.png" alt="Logo">
   
 <p align="center">A python3 script searching for secret on swaggerhub
 
