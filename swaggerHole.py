@@ -3,6 +3,7 @@ from functions.swaggerhub_data import *
 from functions.misc import *
 from datetime import datetime
 import argparse
+import time
 
 
 if __name__ == '__main__':
@@ -10,6 +11,7 @@ if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-s", "--search", help="Term to search", type=str, required=True)
 	parser.add_argument("-o", "--out", help="Output directory", type=str)
+	parser.add_argument("-t", "--threads", help="Threads number", type=int, default=25)
 	parser.add_argument("-j", "--json", help="Json ouput", action="store_true")
 	args = parser.parse_args()
 

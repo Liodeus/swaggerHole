@@ -12,6 +12,9 @@ def parse_yaml_research_secret(path, list_of_urls, json_ouput):
 	"""
 	path_temp_file = "/tmp/temporary_file_from_swaggerHole.yaml"
 	r = requests.Session()
+
+	# Multithreads here
+
 	for url in list_of_urls:
 		url = url.replace("api.swaggerhub.com/apis/", "app.swaggerhub.com/apiproxy/registry/")
 		file_name = '_'.join(url.split('/')[-3:])
@@ -37,7 +40,6 @@ def whispers_search(path_temp_file, json_ouput, path_file):
 		Return True if a secret is found
 	"""
 	secret_found = False
-	print("Whispers results\n")
 	# Whisper scan
 	for secret in whispers.secrets(f"-c config/config.yml {path_temp_file}"):
 		if json_ouput:
@@ -47,9 +49,6 @@ def whispers_search(path_temp_file, json_ouput, path_file):
 			print(f"\t[L:{secret.line}] - {secret.key} - {secret.value}")
 		secret_found = True
 	
-	if not secret_found:
-		print("\tNo results")
-
 	return secret_found
 
 
@@ -59,7 +58,6 @@ def regex_search(path_temp_file, json_ouput, path_file):
 		Return True if a secret is found
 	"""
 	secret_found = False
-	print("\nBy regex\n")
 	for key, value in _regex.items():
 		# Read file line by line
 		with open(path_temp_file) as f:
@@ -96,5 +94,5 @@ def regex_search(path_temp_file, json_ouput, path_file):
 								print(f"\t[L:{line_number}] - {key} - {regex_secret_line}")
 							secret_found = True
 				line_number += 1
-	print("\n*********************************************************************\n")
+	print('\n')
 	return secret_found

@@ -1,8 +1,23 @@
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
 import json
 
 
+def make_req(url, search_term, page):
+	"""
+		TODO
+	"""
+	r = requests.Session()
+	res = r.get(url.format(search_term, page + 1), headers={"accept": "application/json"}).text
+	res = json.loads(res)
+
+	return res
+
+
 def parse_data_api(json_api_data):
+	"""
+		TODO
+	"""
 	url_list = []
 	for x in json_api_data["apis"]:
 		for y in x["properties"]:
@@ -27,9 +42,12 @@ def get_urls(search_term):
 	urls_to_go_through = []
 	urls_to_go_through += parse_data_api(res)
 
-	for x in range(pages_to_go_through):
-		res = r.get(url.format(search_term, x+1), headers={"accept": "application/json"}).text
-		res = json.loads(res)
-		urls_to_go_through += parse_data_api(res)
+	threads= []
+	with ThreadPoolExecutor(max_workers=25) as executor:
+		for page in range(pages_to_go_through):
+			threads.append(executor.submit(make_req, url, search_term, page))
+		
+		for task in as_completed(threads):
+			urls_to_go_through += parse_data_api(task.result())
 
 	return urls_to_go_through
