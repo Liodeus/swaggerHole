@@ -34,26 +34,26 @@ _regex = {
 	'slack_token' : r"\"api_token\":\"(xox[a-zA-Z]-[a-zA-Z0-9-]+)\"",
 	'SSH_privKey' : r"([-]+BEGIN [^\s]+ PRIVATE KEY[-]+[\s]*[^-]*[-]+END [^\s]+ PRIVATE KEY[-]+)",
 	'Heroku API KEY' : r'[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}',
-	'possible_Creds' : r"(?i)(" \
+	'possible_Creds' : r'(?i)(" \
 					r"password\s*[`=:\"]+\s*[^\s]+|" \
 					r"password is\s*[`=:\"]*\s*[^\s]+|" \
 					r"pwd\s*[`=:\"]*\s*[^\s]+|" \
-					r"passwd\s*[`=:\"]+\s*[^\s]+)",
-	'email': r"\S+@\S+",
+					r"passwd\s*[`=:\"]+\s*[^\s]+)',
+	'email': r"[\w\.-]+@[\w\.-]+\.\w+",
 	'ip': r"(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)",
 	'url': r"(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})"
 }
 
 
 _domain_to_delete =  [
-	"google.com",
+	"google.",
 	"attachment.domain.com",
 	"text.domain.com",
-	"facbook.com",
-	"facebook.com",
+	"facbook.",
+	"facebook.",
 	"attachment.domain.com",
-	"linkedin.com",
-	"twitter.com",
+	"linkedin.",
+	"twitter.",
 	"personal-example.com",
 	"example-john-doe.com",
 	"example-company.com",
@@ -68,7 +68,24 @@ _domain_to_delete =  [
 	"smartbear.com",
 	"url.com",
 	"spotify.com",
-	"swagger.io"
+	"swagger.io",
+	"swaggerhub.com",
+	"youtube.",
+	"youtu.be",
+	"reddit.",
+	"pinterest.",
+	"postman.com",
+	"instagram."
 ]
 
+_email_to_delete = [
+	"@my-company.com",
+	"@personal-example.com",
+	"@example-company.com",
+	"@domain.fr",
+	"@email.com",
+	"@domain.com",
+	"@example.com",
+	"help@microsoft.com"
+]
 

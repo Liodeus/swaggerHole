@@ -12,14 +12,17 @@ import os
 
 
 def main():
-	banner()
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-s", "--search", help="Term to search", type=str)
 	parser.add_argument("-o", "--out", help="Output directory", type=str)
 	parser.add_argument("-t", "--threads", help="Threads number (Default 25)", type=int, default=25)
 	parser.add_argument("-j", "--json", help="Json ouput", action="store_true")
+	parser.add_argument("-q", "--quiet", help="Remove banner", action="store_true")
 	args = parser.parse_args()
 	search_term = args.search
+
+	if not args.quiet:
+		banner()
 
 	# Retrieve pipe argument
 	if not sys.stdin.isatty():
@@ -27,7 +30,7 @@ def main():
 			search_term = line.strip().split()[0]
 
 	if search_term == None:
-		print("Search term required !")
+		print("[-] No search term specified")
 		exit()
 
 	try:
