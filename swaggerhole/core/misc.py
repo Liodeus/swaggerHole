@@ -35,7 +35,7 @@ def json_print(line_number, key, regex_secret_line, path_file, date_yaml):
     """
         Print for json output
     """
-    data = {"Line": line_number, f"{key}": regex_secret_line, "File": path_file, "Date": date_yaml}
+    data = {"File": path_file, "Date": date_yaml, "Line": line_number, f"{key}": regex_secret_line}
     print(data)
 
 

@@ -97,11 +97,11 @@ echo test.com | swaggerHole -t 100
 
 ### Normal output
 
-`[Swagger_Name][Date_Last_Modification][Line:Number] Finding_Type - Finding`
+`[Swagger_Name][Date_Last_Update][Line:Number] Finding_Type - Finding`
 
 ### Json output
 
-`{"Line": Number, "Finding_Type": Finding, "File": File_path, "Date": Date_Last_Update}`
+`{"File": File_path, "Date": Date_Last_Update, "Line": Number, "Finding_Type": Finding}`
 
 ### Deactivate url/email
 
