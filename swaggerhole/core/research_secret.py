@@ -1,5 +1,6 @@
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from swaggerhole.core.regex_config import _regex, _domain_to_delete, _email_to_delete
+from swaggerhole.core.misc import check_unwanted, special_print
 import requests
 import whispers
 import json
@@ -7,7 +8,7 @@ import re
 import os
 
 
-def launch_secret_search(url, path, json_ouput):
+def launch_secret_search(url, path, json_ouput, deactivate_url, deactivate_email):
 	"""
 		TODO
 	"""
@@ -22,28 +23,28 @@ def launch_secret_search(url, path, json_ouput):
 	with open(path_file_name, 'w', encoding="utf-8") as f:
 		f.write(res)
 
-	secret_found_whispers = whispers_search(path_file_name, json_ouput, date_yaml)
-	secret_found_regex = regex_search(path_file_name, json_ouput, date_yaml)
+	secret_found_whispers = whispers_search(path_file_name, json_ouput, date_yaml, deactivate_url, deactivate_email)
+	secret_found_regex = regex_search(path_file_name, json_ouput, date_yaml, deactivate_url, deactivate_email)
 
 	# If no secret found remove the file
 	if not secret_found_whispers and not secret_found_regex:
 		os.remove(path_file_name)
 
 
-def parse_yaml_research_secret(path, list_of_urls, json_ouput, threads_number):
+def parse_yaml_research_secret(path, list_of_urls, json_ouput, threads_number, deactivate_url, deactivate_email):
 	"""
 		Parse file to search for secrets
 	"""
 	threads = []
 	with ThreadPoolExecutor(max_workers=threads_number) as executor:
 		for url in list_of_urls:
-			threads.append(executor.submit(launch_secret_search, url, path, json_ouput))
+			threads.append(executor.submit(launch_secret_search, url, path, json_ouput, deactivate_url, deactivate_email))
 		
 	for task in as_completed(threads):
 		task.result()
 
 
-def whispers_search(path_file, json_ouput, date_yaml):
+def whispers_search(path_file, json_ouput, date_yaml, deactivate_url, deactivate_email):
 	"""
 		Search for secret with whispers
 		Return True if a secret is found
@@ -61,7 +62,7 @@ def whispers_search(path_file, json_ouput, date_yaml):
 	return secret_found
 
 
-def regex_search(path_file, json_ouput, date_yaml):
+def regex_search(path_file, json_ouput, date_yaml, deactivate_url, deactivate_email):
 	"""
 		Search for secret with regex
 		Return True if a secret is found
@@ -79,45 +80,22 @@ def regex_search(path_file, json_ouput, date_yaml):
 				if regex_secrets_line:
 					for regex_secret_line in regex_secrets_line:
 						regex_secret_line = regex_secret_line.strip()
-						# If regex is URL
 						if key == "url":
-							flag_domain = False
-							# To remove unwanted domain (see regex_config.py)
-							for domain_unwanted in _domain_to_delete:
-								if domain_unwanted in regex_secret_line:
-									flag_domain = True
-									break
-
-							if not flag_domain:
-
-								if any(regex_secret_line[-1] == x for x in ["'", "\"", ")", ","]):
-									regex_secret_line = regex_secret_line[:-1] 
-								if json_ouput:
-									data = {"line": line_number, f"{key}": regex_secret_line, "file": path_file, "date": date_yaml}
-									print(data)
-								else:
-									print(f"[{path_file.split('/')[-1]}][{date_yaml}][L:{line_number}] - {key} - {regex_secret_line}")
-								secret_found = True
-						elif key == "email":
-							flag_email = False
-							# To remove unwanted email (see regex_config.py)
-							for email_unwanted in _email_to_delete:
-								if email_unwanted in regex_secret_line:
-									flag_email = True
-									break
-							if not flag_email:
-								if json_ouput:
-										data = {"line": line_number, f"{key}": regex_secret_line, "file": path_file, "date": date_yaml}
-										print(data)
-								else:
-									print(f"[{path_file.split('/')[-1]}][{date_yaml}][L:{line_number}] - {key} - {regex_secret_line}")
-								secret_found = True
-						else:
-							if json_ouput:
-								data = {"line": line_number, f"{key}": regex_secret_line, "file": path_file, "date": date_yaml}
-								print(data)
+							if not deactivate_url:
+								flag_domain = check_unwanted(regex_secret_line, _domain_to_delete) # return True if unwanted found
+								if not flag_domain: # if false
+									secret_found = special_print(json_ouput, line_number, key, regex_secret_line, path_file, date_yaml)
 							else:
-								print(f"[{path_file.split('/')[-1]}][{date_yaml}][L:{line_number}] - {key} - {regex_secret_line}")
-							secret_found = True
+								secret_found = special_print(json_ouput, line_number, key, regex_secret_line, path_file, date_yaml)
+						
+						elif key == "email":
+							if not deactivate_email:
+								flag_email = check_unwanted(regex_secret_line, _email_to_delete)
+								if not flag_email:
+									secret_found = special_print(json_ouput, line_number, key, regex_secret_line, path_file, date_yaml)
+							else:
+								secret_found = special_print(json_ouput, line_number, key, regex_secret_line, path_file, date_yaml)
+						else:
+							secret_found = special_print(json_ouput, line_number, key, regex_secret_line, path_file, date_yaml)
 				line_number += 1
 	return secret_found

@@ -18,6 +18,8 @@ def main():
 	parser.add_argument("-t", "--threads", help="Threads number (Default 25)", type=int, default=25)
 	parser.add_argument("-j", "--json", help="Json ouput", action="store_true")
 	parser.add_argument("-q", "--quiet", help="Remove banner", action="store_true")
+	parser.add_argument("-du", "--deactivate_url", help="Deactivate the URL filtering", action="store_true")
+	parser.add_argument("-de", "--deactivate_email", help="Deactivate the email filtering", action="store_true")
 	args = parser.parse_args()
 	search_term = args.search
 
@@ -50,7 +52,7 @@ def main():
 			make_directory(path)
 
 			# Parse yaml and search for secret
-			parse_yaml_research_secret(path, urls_to_go_through, args.json, args.threads)
+			parse_yaml_research_secret(path, urls_to_go_through, args.json, args.threads, args.deactivate_url, args.deactivate_email)
 		else:
 			print("No data available")
 			exit()

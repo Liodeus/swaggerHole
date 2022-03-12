@@ -7,6 +7,7 @@
  • <a href="#requirements">Requirements</a>
  • <a href="#installation">Installation</a>
  • <a href="#usage">Usage</a>
+ • <a href="#output-explanation">Output explanation</a>
  • <a href="#thanks">Thanks</a>
 </p>
 
@@ -51,16 +52,21 @@ pip3 install .
  / __  // /_/ // //  __/                           
 /_/ /_/ \____//_/ \___/                            
                                                    
-usage: swaggerhole [-h] -s SEARCH [-o OUT] [-t THREADS] [-j]
+usage: swaggerhole [-h] [-s SEARCH] [-o OUT] [-t THREADS] [-j] [-q] [-du] [-de]
 
 optional arguments:
   -h, --help            show this help message and exit
   -s SEARCH, --search SEARCH
                         Term to search
   -o OUT, --out OUT     Output directory
-  -t THREADS, --threads THREADS (Default 25)
-                        Threads number
+  -t THREADS, --threads THREADS
+                        Threads number (Default 25)
   -j, --json            Json ouput
+  -q, --quiet           Remove banner
+  -du, --deactivate_url
+                        Deactivate the URL filtering
+  -de, --deactivate_email
+                        Deactivate the email filtering
 ```
 
 ### Search for secret about a domain
@@ -86,6 +92,20 @@ swaggerHole -s test.com -t 100
 
 echo test.com | swaggerHole -t 100
 ```
+
+## Output explanation
+
+### Normal output
+
+`[Swagger_Name][Date_Last_Modification][Line:Number] Finding_Type - Finding`
+
+### Json output
+
+`{"Line": Number, "Finding_Type": Finding, "File": File_path, "Date": Date_Last_Update}`
+
+### Deactivate url/email
+
+Using -du or -de remove the filtering done by the tool. There is more false positive with those options.
 
 ## Thanks
 
