@@ -75,7 +75,8 @@ _domain_to_delete =  [
 	"reddit.",
 	"pinterest.",
 	"postman.com",
-	"instagram."
+	"instagram.",
+	".acme-corp."
 ]
 
 _email_to_delete = [
@@ -86,6 +87,7 @@ _email_to_delete = [
 	"@email.com",
 	"@domain.com",
 	"@example.com",
-	"help@microsoft.com"
+	"help@microsoft.com",
+	"@your-company.com"
 ]
 

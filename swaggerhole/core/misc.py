@@ -35,7 +35,7 @@ def json_print(line_number, key, regex_secret_line, path_file, date_yaml):
     """
         Print for json output
     """
-    data = {"File": path_file, "Date": date_yaml, "Line": line_number, f"{key}": regex_secret_line}
+    data = {f"{key}": regex_secret_line, "File": path_file, "Date": date_yaml, "Line": line_number}
     print(data)
 
 
@@ -43,7 +43,7 @@ def normal_print(line_number, key, regex_secret_line, path_file, date_yaml):
     """
         Print for normal output
     """
-    print(f"[{path_file.split('/')[-1]}][{date_yaml}][L:{line_number}] - {key} - {regex_secret_line}")
+    print(f"{key} - {regex_secret_line} - [{path_file.split('/')[-1]}][{date_yaml}][L:{line_number}]")
 
 
 def check_unwanted(line, unwanted):
@@ -62,7 +62,7 @@ def check_unwanted(line, unwanted):
 
 def special_print(json_output, line_number, key, regex_secret_line, path_file, date_yaml):
     if key == "url":
-        while(any(regex_secret_line[-1] == x for x in ["'", "\"", ")", ","])):
+        while(any(regex_secret_line[-1] == x for x in ["'", "\"", ")", ",", "`", "."])):
             regex_secret_line = regex_secret_line[:-1]
     
     if json_output:

@@ -52,12 +52,7 @@ def whispers_search(path_file, json_ouput, date_yaml, deactivate_url, deactivate
 	secret_found = False
 	# Whisper scan
 	for secret in whispers.secrets(f"-R comment {path_file}"):
-		if json_ouput:
-			data = {"line": secret.line, f"{secret.key}": secret.value, "file": path_file, "date": date_yaml}
-			print(data)
-		else:
-			print(f"[{path_file.split('/')[-1]}][{date_yaml}][L:{secret.line}] - {secret.key} - {secret.value}")
-		secret_found = True
+		secret_found = special_print(json_ouput, line_number, key, regex_secret_line, path_file, date_yaml)
 	
 	return secret_found
 
