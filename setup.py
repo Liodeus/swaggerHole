@@ -11,7 +11,7 @@ with io.open(path.join(pwd, "README.md"), encoding="utf-8") as readme:
 
 setup(
     name="swaggerhole",
-    version="1.0",
+    version="1.1",
     description="Automate the process of retrieving secrets in the public APIs on swaggerHub",
     long_description=desc,
     long_description_content_type="text/markdown",
